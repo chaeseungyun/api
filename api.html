@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>오늘의 날씨</title>
 </head>
 <body>   
     <div style="display: flex; justify-content: center;">
-        <button type="button" id ="cheonan">cheonan</button>
-        <button type="button" id ="busan">busan</button>
+        <button type="button" class="btn">cheonan</button>
+        <button type="button" class="btn">busan</button>
+        <button type="button" class="btn">seoul</button>
     </div>
     <div style="display: flex; justify-content: space-around;">
         <div><p>현재 온도</p>
@@ -21,36 +23,6 @@
         <div><p>일몰</p>
             <p id="falling"></p></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        let cheonan = document.getElementById('cheonan');
-        let busan = document.getElementById('busan');
-        function findcheonan() {axios.get('https://api.openweathermap.org/data/2.5/weather?lat=36.814&lon=127.15&appid=0be87df02cd14b1d08489cd0372b5b0e&lang=kr')
-        .then((response)=>weatherinfo(response))
-        .catch((e)=>console.log(e))
-        }
-        function findbusan() {
-            axios.get('https://api.openweathermap.org/data/2.5/weather?lat=35.1795543&lon=129.0756416&appid=0be87df02cd14b1d08489cd0372b5b0e&lang=kr')
-        .then((response)=>weatherinfo(response))
-        .catch((e)=>console.log(e))
-        }
-        function weatherinfo(res) {
-            const temp = document.getElementById('temp');
-            const weather = document.getElementById('weather');
-            const rising = document.getElementById('rising');
-            const falling = document.getElementById('falling');
-            temp.innerHTML=res.data.main.temp-273.15;
-            weather.innerHTML=res.data.weather[0].description;
-            let risetime = res.data.sys.sunrise;
-            let settime = res.data.sys.sunset;
-            const sunrise = new Date(risetime*1000);
-            const sunset = new Date(settime*1000);
-            rising.innerHTML=sunrise;
-            falling.innerHTML=sunset;
-            console.log(res);
-        }
-        cheonan.addEventListener(onclick,findcheonan());
-        busan.addEventListener(onclick,findbusan());
-    </script>
+    <script src="api.js"></script>
 </body>
 </html>
